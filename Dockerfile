@@ -2,7 +2,9 @@ FROM lsiobase/alpine.armhf:3.6
 
 MAINTAINER fabito
 
-RUN apk add --update \
+# install build packages
+RUN \
+ apk add --no-cache --virtual=build-dependencies \
               musl \
               build-base \
               python3 \
@@ -12,6 +14,13 @@ RUN apk add --update \
   && pip3.5 install --upgrade pip \
   && rm /var/cache/apk/*
 
+# clean up
+ apk del --purge \
+	build-dependencies && \
+ rm -rf \
+	/root/.cache \
+	/tmp/*
+
 # make some useful symlinks that are expected to exist
 RUN cd /usr/bin \
   && ln -sf easy_install-3.5 easy_install \
@@ -20,6 +29,8 @@ RUN cd /usr/bin \
   && ln -sf python3.5 python \
   && ln -sf python-config3.5 python-config \
   && ln -sf pip3.5 pip
+
+
 
 # add local files
 COPY root/ /

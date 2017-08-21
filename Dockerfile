@@ -3,8 +3,7 @@ FROM lsiobase/alpine.armhf:3.6
 MAINTAINER fabito
 
 # install build packages
-RUN \
- apk add --no-cache --virtual=build-dependencies \
+RUN apk add --update \
               musl \
               build-base \
               python3 \

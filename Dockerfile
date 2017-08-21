@@ -11,7 +11,7 @@ RUN \
               python3-dev \
               bash \
               git \
-  && pip3.5 install --upgrade pip \
+  && pip3 install --upgrade pip \
   && rm /var/cache/apk/*
 
 # add local files
